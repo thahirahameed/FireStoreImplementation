@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   textInputStyle: {
     flex: 1,
     marginTop: 5,
-    height: 40,
-    backgroundColor: 'lightblue',
+    height: 30,
+    backgroundColor: 'lightyellow',
   },
   textLabelStyle: {
     flex: 1,
-    marginTop: 5,
+    marginTop: 10,
     fontWeight: 'bold',
   },
   buttonStyle: {

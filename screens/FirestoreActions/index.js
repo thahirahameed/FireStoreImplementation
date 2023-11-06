@@ -7,12 +7,11 @@ const db = firestore();
 
 const FireStoreActions = () => {
   const [users, setUsers] = useState([]);
-  const [enteredData, setEnteredData] = useState({
-    first_name: '',
-    last_name: '',
-    county: '',
-    email: '',
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [county, setCounty] = useState('');
+  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -31,10 +30,16 @@ const FireStoreActions = () => {
     }
   };
 
-  const addData = async enteredData => {
+  const addData = async () => {
     try {
       const userCollection = firestore().collection('UserCollection');
-      await userCollection.add({enteredData});
+      await userCollection.add({
+        first_name: firstName,
+        last_name: lastName,
+        county: county,
+        email: email,
+        id: id,
+      });
       console.log('Added successfully');
     } catch (e) {
       console.error('Error adding document: ', e);
@@ -78,64 +83,74 @@ const FireStoreActions = () => {
         keyExtractor={item => item.id}
       />
       <View style={styles.dataContainer}>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.textLabelStyle}>ID: </Text>
-          <TextInput
-            defaultValue=" "
-            onChangeText={changedText => {
-              setEnteredData({...enteredData, id: parseInt(changedText)});
-            }}
-            style={styles.textInputStyle}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.textLabelStyle}>First Name: </Text>
-          <TextInput
-            defaultValue=" "
-            onChangeText={changedText => {
-              setEnteredData({...enteredData, first_name: changedText});
-            }}
-            style={styles.textInputStyle}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.textLabelStyle}>Last Name: </Text>
-          <TextInput
-            defaultValue=" "
-            onChangeText={changedText => {
-              setEnteredData({...enteredData, last_name: changedText});
-            }}
-            style={styles.textInputStyle}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.textLabelStyle}>County: </Text>
-          <TextInput
-            defaultValue=" "
-            onChangeText={changedText => {
-              setEnteredData({...enteredData, county: changedText});
-            }}
-            style={styles.textInputStyle}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.textLabelStyle}>Email: </Text>
-          <TextInput
-            autoCapitalize="none"
-            defaultValue=" "
-            onChangeText={changedText => {
-              setEnteredData({...enteredData, email: changedText});
-            }}
-            style={styles.textInputStyle}
-          />
+        <View style={{backgroundColor: 'lightblue'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.textLabelStyle}>ID: </Text>
+            <TextInput
+              defaultValue=" "
+              onChangeText={changedText => {
+                setId(parseInt(changedText));
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.textLabelStyle}>First Name: </Text>
+            <TextInput
+              defaultValue=" "
+              onChangeText={changedText => {
+                setFirstName(changedText);
+                //setEnteredData({...enteredData, first_name: changedText});
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.textLabelStyle}>Last Name: </Text>
+            <TextInput
+              defaultValue=" "
+              onChangeText={changedText => {
+                setLastName(changedText);
+                //setEnteredData({...enteredData, last_name: changedText});
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.textLabelStyle}>County: </Text>
+            <TextInput
+              defaultValue=" "
+              onChangeText={changedText => {
+                setCounty(changedText);
+                //setEnteredData({...enteredData, county: changedText});
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.textLabelStyle}>Email: </Text>
+            <TextInput
+              autoCapitalize="none"
+              defaultValue=" "
+              onChangeText={changedText => {
+                setEmail(changedText);
+                // setEnteredData({...enteredData, email: changedText});
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
         </View>
       </View>
 
       <TouchableOpacity
         style={styles.buttonStyle}
         onPress={() => {
-          addData(enteredData);
-          setEnteredData('');
+          addData();
+          setFirstName('');
+          setLastName('');
+          setCounty('');
+          setEmail('');
+          setId('');
         }}>
         <Text style={styles.textLabelStyle}>Add Details to Fire Store</Text>
       </TouchableOpacity>
