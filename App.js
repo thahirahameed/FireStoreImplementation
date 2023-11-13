@@ -1,14 +1,13 @@
-import React from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
-import {FireStoreActions} from './screens';
+import React, {useState, useEffect} from 'react';
+import {View, Text} from 'react-native';
+import {LoginScreen} from './screens';
 
 function App() {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <FireStoreActions />
-      </ScrollView>
-    </SafeAreaView>
+    <View>
+      <Text style={{marginTop: 30}}>Firebase Authentication</Text>
+      <LoginScreen />
+    </View>
   );
 }
 
